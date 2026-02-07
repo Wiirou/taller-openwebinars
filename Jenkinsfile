@@ -3,10 +3,12 @@ pipeline {
 	stages {
 		stage('Obtener el repositorio'){
 			steps{
-				git branch 'main', url: 'https://github.com/Wiirou/taller-openwebinars.git'
+				git branch: 'main', url: 'https://github.com/Wiirou/taller-openwebinars.git'
 			}
+		}
 		stage('Generar la documentación'){
-			sh "doxygen"
+			steps {
+				sh "doxygen"
 			}
 		}
 	}
