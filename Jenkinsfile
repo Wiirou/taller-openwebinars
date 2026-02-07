@@ -11,6 +11,12 @@ pipeline {
 				sh "doxygen"
 				sh "zip documentation.zip -r html/*"
 			}
+	stage('Análisis estático') {
+            steps {
+                sh 'make cppcheck-xml'
+                recordIssues enabledForFailure: true, failOnError: true, qualityGates: [[threshold: 1, type: 'TOTAL', unstable: false]], tools: [cppCheck(pattern: 'reports/cppcheck/*.xml')]
+            }
+        }
 		}
 	}
 	post {
