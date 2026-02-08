@@ -12,6 +12,12 @@ pipeline {
 				sh "zip documentation.zip -r html/*"
 			}
 		}
+		stage('Test Unitarios'){
+			steps{
+			sh 'make tests-xml'
+			junit 'reports/cmocka/*.xml'
+			}
+		}
 		stage('Análisis estático') {
             		steps {
                 		sh 'make cppcheck-xml'
